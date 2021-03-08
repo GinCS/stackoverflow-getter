@@ -62,6 +62,24 @@
   font-size: 1.5rem;
 }
 
+.tag {
+    margin: 1rem;
+    padding: 1.5rem;
+    text-align: left;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+.tag {
+    color: #8e8e8e;
+}
+
+.tag:hover {
+    color: black;
+    background-color: lightgrey;
+
+}
+
 .code {
   background: #fafafa;
   border-radius: 5px;
