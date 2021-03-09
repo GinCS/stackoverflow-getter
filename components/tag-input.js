@@ -1,35 +1,34 @@
-import React from 'react'
+import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
 
-export default class Tag extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tag: ""
-        };
 
-        this.updateTag = this.updateTag.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+export const SearchTag = () => {
+    var tag = "";
+
+    const router = useRouter();
+
+    const updateTag = (event) => {
+        tag = event.target.value;
     }
 
-    updateTag = (event) => this.setState({
-        tag: event.target.value
-    })
-
-    onSubmit = (event) => {
+    const onSubmit = (event) => {
         event.preventDefault();
-        this.props.onSubmit(this.state.tag);
+        if (tag) {
+            router.push(`/result/${tag}`);
+        }
     }
+    
+    return (
+        <div>
+            <form onSubmit={onSubmit} className={styles.tagin}>
+                <input className={styles.description}
+                    type="text"
+                    placeholder="Enter A Tag"
+                    onChange={updateTag} 
+                    name="tag" required />
+                <button type="submit" className={styles.tag}>Submit</button>
+            </form>
+        </div>
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.onSubmit}>
-                    <input className={styles.description} type="text" placeholder="Enter A Tag" name="tag" onChange={this.updateTag} required />
-                    <button type="submit" className={styles.tag}>Confirm</button>
-                </form>
-            </div>
-
-        );
-    }
+    );
 }
