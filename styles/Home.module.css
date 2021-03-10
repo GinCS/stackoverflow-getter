@@ -25,6 +25,25 @@
     align-items: center;
 }
 
+.collapsable {
+    background-color: lightblue;
+    color: #1d62d1;
+    cursor: pointer;
+    padding: 18px;
+    margin: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.collapsable:hover{
+    background-color: #2d9acc;
+    color: lightblue;
+}
+
 .footer {
   width: 100%;
   height: 100px;

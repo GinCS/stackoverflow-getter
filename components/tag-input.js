@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 
 
 export const SearchTag = () => {
-    var tag = "";
+    let tag = "";
 
     const router = useRouter();
 

@@ -3,11 +3,10 @@
     "",
     "\\components",
     "\\pages",
-    "\\pages\\api",
     "\\pages\\result",
     "\\public",
     "\\styles"
   ],
-  "SelectedNode": "\\pages\\result\\[tag].js",
+  "SelectedNode": "\\components\\tag-input.js",
   "PreviewInSolutionExplorer": false
 }
