@@ -97,14 +97,25 @@ export async function getServerSideProps (pageContext) {
     }
 
     let apiResponse = await fetch(
-        `https://api.stackexchange.com/2.2/search?fromdate=${weekBefore}&todate=${currTime}&order=desc&sort=votes&tagged=${tagged}&filter=!)rTkraPXxg*xgr03n8Uq&site=stackoverflow`
+        `https://api.stackexchange.com/2.2/search?fromdate=${weekBefore}&todate=${currTime}&order=desc&sort=votes&tagged=${tagged}&filter=!)rTkraPXxg*xgr03n8Uq&site=stackoverflow`,
+        {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': `Getter ${process.env.STACK_EXCHANGE_KEY}`
+            })
+        }
     );
 
 
     const apiVotesJSON = await apiResponse.json();
 
     apiResponse = await fetch(
-        `https://api.stackexchange.com/2.2/search?fromdate=${weekBefore}&todate=${currTime}&order=desc&sort=creation&tagged=${tagged}&filter=!)rTkraPXxg*xgr03n8Uq&site=stackoverflow`
+        `https://api.stackexchange.com/2.2/search?fromdate=${weekBefore}&todate=${currTime}&order=desc&sort=creation&tagged=${tagged}&filter=!)rTkraPXxg*xgr03n8Uq&site=stackoverflow`,
+        {
+            headers: {
+                Authorization: `Getter ${process.env.STACK_EXCHANGE_KEY}`
+            }
+        }
     );
 
     const apiCreationJSON = await apiResponse.json();
