@@ -1,4 +1,15 @@
-## Getting Started
+# COMP 4350 Assignment 1 - A web application for exploring Stack Overflow questions
+
+Docker Hub: https://hub.docker.com/r/gincs/stackoverflow-getter
+First, pull the image by using the command: 
+```
+$ docker pull gincs/stackoverflow-getter
+```
+Second, run the image by using the command:
+```
+$ docker run –rm -p 3000:3000 gincs/stackoverflow-getter
+```
+## Getting Started (pulling from GitHub)
 
 First, run the development server:
 
