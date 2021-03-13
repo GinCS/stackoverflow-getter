@@ -5,9 +5,6 @@ import React from 'react';
 import Collapsible from 'react-collapsible';
 
 export const Result = ({ tag, votes, creations }) => {
-    console.log(tag, votes, creations);
-    
-
     let mergedList = [];
     let sizeForVotes = 10, sizeForCreations = 10;
     const error = creations.error_id == 502;
@@ -46,16 +43,12 @@ export const Result = ({ tag, votes, creations }) => {
         }
         return result;
     }
-
-    function bodyBreakdown(item) {
-        return { __html: item.body.replace(/\n/g, "<br/>") };//body_markdown.replace(/\n/g,"<br/>")};
-    }
-
+    
 
     return (
         <div className={styles.container}>
             <Head>
-                <title>Result</title>
+                <title>Result for {tag}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
@@ -76,7 +69,36 @@ export const Result = ({ tag, votes, creations }) => {
                     }
                     
                     const date = new Date(item.creation_date * 1000);
-                    
+
+                    function bodyBreakdown(item) {
+                        return { __html: item.body.replace(/\n/g, "<br/>") };//body_markdown.replace(/\n/g,"<br/>")};
+                    }
+                    // for getting comments
+                    var commentArr = [];
+                    const size = item.comment_count;
+                    for (let i = 0; i < size; i++) {
+                        commentArr.push(item.comments[i]);
+                    }
+
+                    let commentExist = "";
+
+                    if (size === 0) {
+                        commentExist = "No Comments";
+                    }
+
+                    // for getting answers
+                    var answerArr = [];
+                    const ansSize = item.answer_count;
+                    for (let i = 0; i < ansSize; i++) {
+                        answerArr.push(item.answers[i]);
+                    }
+
+                    let ansExist = "";
+
+                    if (ansSize === 0) {
+                        ansExist = "No Answers";
+                    }
+
                     return (
                         <Collapsible key={index} className={styles.collapseOuter} trigger={
                             (<button type="button" className={styles.collapsable} >
@@ -86,7 +108,54 @@ export const Result = ({ tag, votes, creations }) => {
                                 <div className={styles.collapseInner}>
                                     <h3>Question Body</h3>
                                     <div className={styles.qBody} dangerouslySetInnerHTML={bodyBreakdown(item)} />
-                                <h4>Question Comments</h4>
+                                <h4>{commentExist}</h4>
+                                {commentArr.map(function (obj, i) {
+
+                                    let date = new Date(obj.creation_date * 1000);
+                                    return (
+                                        <div key={i} className={styles.cBody}>
+                                            <h4>Comments:</h4>
+                                            <p>Creation Date: {date.getFullYear()}/{date.getMonth() + 1}/{date.getDate()}
+                                                <br />
+                                            Votes: {obj.score}</p>
+                                            <div dangerouslySetInnerHTML={{ __html: obj.body.replace(/\n/g, "<br/>") }} />
+                                        </div>
+                                    )
+                                })}
+                                <h4>{ansExist}</h4>
+                                {answerArr.map(function (obj, i) {
+
+                                    let date = new Date(obj.creation_date * 1000);
+                                    var aCommentArr = [];
+                                    const cSize = obj.comment_count;
+                                    for (let i = 0; i < cSize; i++) {
+                                        aCommentArr.push(obj.comments[i]);
+                                    }
+                                    return (
+                                        <div key={i} className={styles.aBody}>
+                                            < h4 > Answer #{i+1}:</h4>
+                                            <p>Creation Date: {date.getFullYear()}/{date.getMonth() + 1}/{date.getDate()}
+                                                <br />
+                                            Votes: {obj.score}</p>
+                                            <div dangerouslySetInnerHTML={{ __html: obj.body.replace(/\n/g, "<br/>") }} />
+
+                                            {aCommentArr.map(function (o, j) {
+
+                                                let date = new Date(o.creation_date * 1000);
+                                                return (
+                                                    <div key= { j } className={styles.acBody}>
+                                                        <h4>Answer #{i+1}'s Comments:</h4>
+                                                        <p>Creation Date: {date.getFullYear()}/{date.getMonth() + 1}/{date.getDate()}
+                                                            <br />
+                                            Votes: {o.score}</p>
+                                                        <div dangerouslySetInnerHTML={{ __html: o.body.replace(/\n/g, "<br/>") }} />
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    )
+                                })}
+                                
 
                                 </div>
                         </Collapsible>
