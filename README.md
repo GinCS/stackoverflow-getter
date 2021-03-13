@@ -7,7 +7,7 @@ $ docker pull gincs/stackoverflow-getter
 ```
 Second, run the image by using the command:
 ```
-$ docker run –rm -p 3000:3000 gincs/stackoverflow-getter
+$ docker run -p 3000:3000 gincs/stackoverflow-getter
 ```
 ## Getting Started (pulling from GitHub)
 
